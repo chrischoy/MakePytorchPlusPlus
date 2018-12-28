@@ -1,0 +1,10 @@
+*.so
+*.o
+*.swo
+*.swp
+*.swn
+*.pyc
+
+build/
+dist/
+MinkowskiEngine/
