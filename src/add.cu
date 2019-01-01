@@ -1,7 +1,4 @@
-#include <ATen/cuda/CUDAContext.h>
-#include <torch/extension.h>
-
-#include "src/common.hpp"
+#include "src/gpu.cuh"
 #include "src/utils.hpp"
 
 template <typename Dtype>
@@ -13,25 +10,16 @@ __global__ void sum(Dtype *a, Dtype *b, Dtype *c, int N) {
 }
 
 template <typename Dtype>
-void AddGPU(at::Tensor in_a, at::Tensor in_b, at::Tensor out_c) {
-  if (in_a.numel() != in_b.numel())
-    throw std::invalid_argument(Formatter()
-                                << "Size mismatch A.numel(): " << in_a.numel()
-                                << ", B.numel(): " << in_b.numel());
+void AddGPUKernel(Dtype *in_a, Dtype *in_b, Dtype *out_c, int N,
+                  cudaStream_t stream) {
+  sum<Dtype>
+      <<<GET_BLOCKS(N), CUDA_NUM_THREADS, 0, stream>>>(in_a, in_b, out_c, N);
 
-  out_c.resize_({in_a.numel()});
-
-  cudaError_t err;
-
-  sum<<<GET_BLOCKS(in_a.numel()), CUDA_NUM_THREADS, 0,
-        at::cuda::getCurrentCUDAStream()>>>(in_a.data<Dtype>(),
-                                            in_b.data<Dtype>(),
-                                            out_c.data<Dtype>(), in_a.numel());
-
-  err = cudaGetLastError();
+  cudaError_t err = cudaGetLastError();
   if (cudaSuccess != err)
     throw std::runtime_error(Formatter()
                              << "CUDA kernel failed : " << std::to_string(err));
 }
 
-template void AddGPU<float>(at::Tensor in_a, at::Tensor in_b, at::Tensor out_c);
+template void AddGPUKernel<float>(float *in_a, float *in_b, float *out_c, int N,
+                                  cudaStream_t stream);
