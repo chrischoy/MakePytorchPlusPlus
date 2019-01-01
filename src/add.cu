@@ -4,7 +4,7 @@
 template <typename Dtype>
 __global__ void sum(Dtype *a, Dtype *b, Dtype *c, int N) {
   int i = blockIdx.x * blockDim.x + threadIdx.x;
-  if (i >= N) {
+  if (i <= N) {
     c[i] = a[i] + b[i];
   }
 }
