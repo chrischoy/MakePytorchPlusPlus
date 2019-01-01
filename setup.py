@@ -1,5 +1,5 @@
 from setuptools import setup
-from torch.utils.cpp_extension import CppExtension, CUDAExtension, BuildExtension
+from torch.utils.cpp_extension import CUDAExtension, BuildExtension
 
 # Python interface
 setup(
@@ -13,12 +13,12 @@ setup(
             name='MakePytorchBackend',
             include_dirs=['./'],
             sources=[
-                'pybind/make_pytorch.cpp',
+                'pybind/bind.cpp',
             ],
-            libraries=['makepytorch'],
+            libraries=['make_pytorch'],
             library_dirs=['objs'],
             # extra_compile_args=['-g']
-            )
+        )
     ],
     cmdclass={'build_ext': BuildExtension},
     author='Christopher B. Choy',

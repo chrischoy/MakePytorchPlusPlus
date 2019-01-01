@@ -22,7 +22,7 @@ INCLUDE_DIRS += $(PYTHON_HEADER_DIR)
 INCLUDE_DIRS += $(PYTORCH_INCLUDES)
 LIBRARY_DIRS += $(PYTORCH_LIBRARIES)
 
-EXTENSION_NAME := PytorchMakeTutorial
+EXTENSION_NAME := MakePytorchPlusPlus
 
 # Custom (MKL/ATLAS/OpenBLAS) include and lib directories.
 # Leave commented to accept the defaults for your choice of BLAS
@@ -37,7 +37,7 @@ CPP_SRCS := $(wildcard $(SRC_DIR)/*.cpp)
 CU_SRCS := $(wildcard $(SRC_DIR)/*.cu)
 OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(CPP_SRCS))
 CU_OBJS := $(patsubst $(SRC_DIR)/%.cu,$(OBJ_DIR)/cuda/%.o,$(CU_SRCS))
-STATIC_LIB := $(OBJ_DIR)/lib$(EXTENSION_NAME).a
+STATIC_LIB := $(OBJ_DIR)/libmake_pytorch.a
 
 # CUDA architecture setting: going with all of them.
 # For CUDA < 6.0, comment the *_50 through *_61 lines for compatibility.
