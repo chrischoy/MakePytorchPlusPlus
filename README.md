@@ -10,7 +10,6 @@ The associated tutorial can be found at the [blog post](https://chrischoy.github
 You must have `torch` installed in your current (virtual environment) python.
 
 ```
-pip install -r requirements.txt
 git clone https://github.com/chrischoy/MakePytorchPlusPlus
 cd MakePytorchPlusPlus
 make
