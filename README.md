@@ -5,6 +5,7 @@
 In this repository, I provide an alternative way to compile and debug your custom extension with a makefile.
 The associated tutorial can be found at the [blog post](https://chrischoy.github.io/research/pytorch-extension-with-makefile).
 
+
 ## Installation
 
 You must have `torch` installed in your current (virtual environment) python.
@@ -12,10 +13,11 @@ You must have `torch` installed in your current (virtual environment) python.
 ```
 git clone https://github.com/chrischoy/MakePytorchPlusPlus
 cd MakePytorchPlusPlus
-make
+python setup.py install
 ```
 
-For parallel compilation, use `make -j4` or any number of CPUs that you want to use.
+It automatically selects the maximum number of CPU for parallel compilation.
+
 
 ## Running the example
 

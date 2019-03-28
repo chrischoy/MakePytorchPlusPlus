@@ -1,5 +1,8 @@
+import os
 from setuptools import setup
 from torch.utils.cpp_extension import CUDAExtension, BuildExtension
+
+os.system('make -j%d' % os.cpu_count())
 
 # Python interface
 setup(

@@ -72,7 +72,7 @@ CXXFLAGS += -pthread -fPIC -fwrapv -std=c++11 $(COMMON_FLAGS) $(WARNINGS)
 NVCCFLAGS += -std=c++11 -ccbin=$(CXX) -Xcompiler -fPIC $(COMMON_FLAGS)
 
 all: $(STATIC_LIB)
-	python setup.py install --force
+# 	python setup.py install --force
 
 $(OBJ_DIR):
 	@ mkdir -p $@
