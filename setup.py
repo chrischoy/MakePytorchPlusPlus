@@ -7,7 +7,7 @@ os.system('make -j%d' % os.cpu_count())
 # Python interface
 setup(
     name='PytorchMakefileTutorial',
-    version='0.1.0',
+    version='0.2.0',
     install_requires=['torch'],
     packages=['MakePytorchPlusPlus'],
     package_dir={'MakePytorchPlusPlus': './'},

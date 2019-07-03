@@ -15,6 +15,9 @@ PYTORCH_LIBRARIES := $(shell python -c 'from torch.utils.cpp_extension import li
 # CUDA_DIR := /usr/local/cuda
 CUDA_DIR := $(shell python -c 'from torch.utils.cpp_extension import _find_cuda_home; print(_find_cuda_home())')
 
+# Assume pytorch > v1.1
+WITH_ABI := $(shell python -c 'import torch; print(int(torch._C._GLIBCXX_USE_CXX11_ABI))')
+
 INCLUDE_DIRS := ./ $(CUDA_DIR)/include
 
 INCLUDE_DIRS += $(PYTHON_HEADER_DIR)
@@ -67,7 +70,7 @@ CXXFLAGS += -MMD -MP
 
 # Complete build flags.
 COMMON_FLAGS += $(foreach includedir,$(INCLUDE_DIRS),-I$(includedir)) \
-	     -DTORCH_API_INCLUDE_EXTENSION_H -D_GLIBCXX_USE_CXX11_ABI=0
+	     -DTORCH_API_INCLUDE_EXTENSION_H -D_GLIBCXX_USE_CXX11_ABI=$(WITH_ABI)
 CXXFLAGS += -pthread -fPIC -fwrapv -std=c++11 $(COMMON_FLAGS) $(WARNINGS)
 NVCCFLAGS += -std=c++11 -ccbin=$(CXX) -Xcompiler -fPIC $(COMMON_FLAGS)
 
